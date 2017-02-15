@@ -1,5 +1,12 @@
 "use strict";
 
+//I know that I could have wrote this project without Constructor functions however I
+//wanted to use them to really learn how they work. Also my goal was to use mostly all vanilla
+//JS with the exception of using jQuery for element selction and assigning classes and things.
+//I feel that method is much faster and saves lines of code. Also I know there might be some
+//extra code especially when checking for a winner. I tried to use the DRY method as much as
+//possible however I didn't want to copy anyone eleses work instead I wanted to come up with my
+//own solution.
 
 
 //immediately invoked function
