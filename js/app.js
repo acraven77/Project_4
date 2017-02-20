@@ -2,10 +2,10 @@
 
 //I know that I could have wrote this project without Constructor functions however I
 //wanted to use them to really learn how they work. Also my goal was to use mostly all vanilla
-//JS with the exception of using jQuery for element selction and assigning classes and things.
+//JS with the exception of using jQuery for element selection and assigning classes and things.
 //I feel that method is much faster and saves lines of code. Also I know there might be some
 //extra code especially when checking for a winner. I tried to use the DRY method as much as
-//possible however I didn't want to copy anyone eleses work instead I wanted to come up with my
+//possible however I didn't want to copy another students work instead I wanted to come up with my
 //own solution.
 
 
@@ -208,41 +208,52 @@
 //On click handler to add the proper class based off of "X's" and "O's" to the element. Increment the
 //move count and call the move tracking function. Also checks if there is a winner yet.
   $(".box").on("click", function() {
-    if ($("#player1").hasClass('active') && !$(this).hasClass('box-filled-1')) {
-      $(this).addClass('box-filled-1');
-      game.moveCount(0);
-      game.move(this,0);
-      if (game.checkWin() === 'Player 1') {
-        winner('Player 1');
-      } else if (game.checkWin() === 'Tie') {
-          winner('Tie');
-      }
-      switchPlayer('player1');
-    } else if ($("#player2").hasClass('active') && !$(this).hasClass('box-filled-2')) {
-        $(this).addClass('box-filled-2');
-        game.moveCount(1);
-        game.move(this,1);
-        if (game.checkWin() === 'Player 2') {
-          winner('Player 2');
+    var win = false;
+      if ($("#player1").hasClass('active') && !$(this).hasClass('box-filled-1')) {
+        $(this).addClass('box-filled-1');
+        game.moveCount(0);
+        game.move(this,0);
+        if (game.checkWin() === 'Player 1') {
+          winner('Player 1');
+          win = true;
         } else if (game.checkWin() === 'Tie') {
             winner('Tie');
+            win = true;
         }
-        if (vsComputer) {
-          switchPlayer('player2');
-          computerMove();
-        } else {
-            switchPlayer('player2');
+        switchPlayer('player1');
+      } else if ($("#player2").hasClass('active') && !$(this).hasClass('box-filled-2')) {
+          $(this).addClass('box-filled-2');
+          game.moveCount(1);
+          game.move(this,1);
+          if (game.checkWin() === 'Player 2') {
+            winner('Player 2');
+            win = true;
+          } else if (game.checkWin() === 'Tie') {
+              winner('Tie');
+              win = true;
           }
-      }
+          if (vsComputer && !win) {
+            switchPlayer('player2');
+            computerMove();
+          } else {
+              switchPlayer('player2');
+            }
+        }
   });
 
 
 //Function to display proper screen once a winner has been decided. Also reloads the page if
-//the new game button is clicked. I wasn't positive if the best way to reset the game is to
-//reload the entire page or try and reset objects, variables etc...
+//the new game button is clicked. Once "New Game" is clicked the move count, Boxes
+//array, board boxes classes are all reset back to zero. A random player is chosen
+//and checks to see if the previous game was played with computer.
   function winner(player) {
     $("#board").hide();
-    $("body").append('<div class="screen screen-win" id="finish"><header><h1>Tic Tac Toe</h1><p class="message"></p><a href="#" class="button newGame">New game</a></header></div>');
+
+    if (document.getElementById('finish')) {
+      $("#finish").show();
+    } else {
+      $("body").append('<div class="screen screen-win" id="finish"><header><h1>Tic Tac Toe</h1><p class="message"></p><a href="#" class="button newGame">New game</a></header></div>');
+    }
 
     if (player === 'Player 1') {
       $("#finish").addClass('screen-win-one');
@@ -256,7 +267,30 @@
     }
 
     $(".newGame").on("click", function() {
-      location.reload();
+      $("#finish").hide();
+      $("#board").show();
+      for (var i = 0; i < 2; i++) {
+        game.board[i].moves = [];
+      }
+      for (var x = 0; x < document.getElementsByClassName('box').length; x++) {
+        document.getElementsByClassName('box')[x].classList.remove("xHover", "oHover", "box-filled-1", "box-filled-2");
+      }
+      document.getElementById('finish').classList.remove("screen-win-one", "screen-win-two", "screen-win-tie");
+      game.boxesArr = [[0,0,0], [0,0,0], [0,0,0]];
+
+
+      $("#player1").removeClass("active");
+      $("#player2").removeClass("active");
+
+      if (randomNum() < .5) {
+        $("#player1").addClass("active");
+      } else {
+        $("#player2").addClass("active");
+      }
+
+      if (game.board[0].name === 'Computer' && $("#player1").hasClass("active")) {
+        computerMove();
+      }
     });
   }
 
@@ -293,5 +327,6 @@
     } while (box[num].classList.contains('box-filled-1') || box[num].classList.contains('box-filled-2'));
     return num;
   }
+
 
 }());
