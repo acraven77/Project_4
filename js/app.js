@@ -5,7 +5,7 @@
 //JS with the exception of using jQuery for element selection and assigning classes and things.
 //I feel that method is much faster and saves lines of code. Also I know there might be some
 //extra code especially when checking for a winner. I tried to use the DRY method as much as
-//possible however I didn't want to copy another students work instead I wanted to come up with my
+//possible however I didn't want to copy other students work, instead I wanted to come up with my
 //own solution.
 
 
