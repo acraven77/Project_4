@@ -183,7 +183,7 @@ h1 {
   color: white;
 }
 
-.computer {
+.or {
   font-family: "Montserrat", sans-serif;
   line-height: 0.7;
   margin: 0 auto;
@@ -202,4 +202,12 @@ h1 {
   transition: 0.25s ease;
   color: #54D17A;
   margin-top: 30px;
+}
+
+.winPage {
+  font-family: "Montserrat", sans-serif;
+  line-height: 0.7;
+  margin: 15px auto;
+  text-align: center;
+  width: 1.875em;
 }

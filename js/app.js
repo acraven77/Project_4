@@ -31,7 +31,7 @@
 //Also create a new game against the computer if "vsComputer" is selected.
   window.onload = function() {
     $("#board").hide();
-    $("body").append('<div class="screen screen-start" id="start"><header><h1>Tic Tac Toe</h1><a href="#" class="button">Start game</a><form><input type="text" class="nameInput" id="startName1" placeholder="player 1 name"><input type="text" class="nameInput" id="startName2" placeholder="player 2 name"></form><h1 class="computer">or</h1><a href="#" class="compButton">vs Computer</a></header></div>');
+    $("body").append('<div class="screen screen-start" id="start"><header><h1>Tic Tac Toe</h1><a href="#" class="button">Start game</a><form><input type="text" class="nameInput" id="startName1" placeholder="player 1 name"><input type="text" class="nameInput" id="startName2" placeholder="player 2 name"></form><h1 class="or">or</h1><a href="#" class="compButton">vs Computer</a></header></div>');
 
     $(".button").click(function(){
       var player1 = new Player($("#startName1").val(), 1);
@@ -209,7 +209,7 @@
 //move count and call the move tracking function. Also checks if there is a winner yet.
   $(".box").on("click", function() {
     var win = false;
-      if ($("#player1").hasClass('active') && !$(this).hasClass('box-filled-1')) {
+      if ($("#player1").hasClass('active') && !$(this).hasClass('box-filled-1') && !$(this).hasClass('box-filled-2')) {
         $(this).addClass('box-filled-1');
         game.moveCount(0);
         game.move(this,0);
@@ -221,7 +221,7 @@
             win = true;
         }
         switchPlayer('player1');
-      } else if ($("#player2").hasClass('active') && !$(this).hasClass('box-filled-2')) {
+      } else if ($("#player2").hasClass('active') && !$(this).hasClass('box-filled-2') && !$(this).hasClass('box-filled-1')) {
           $(this).addClass('box-filled-2');
           game.moveCount(1);
           game.move(this,1);
@@ -252,7 +252,7 @@
     if (document.getElementById('finish')) {
       $("#finish").show();
     } else {
-      $("body").append('<div class="screen screen-win" id="finish"><header><h1>Tic Tac Toe</h1><p class="message"></p><a href="#" class="button newGame">New game</a></header></div>');
+      $("body").append('<div class="screen screen-win" id="finish"><header><h1>Tic Tac Toe</h1><p class="message"></p><a href="#" class="button newGame">New game</a><h1 class="winPage">or</h1><a href="#" class="button">Reset Game</a></header></div>');
     }
 
     if (player === 'Player 1') {
