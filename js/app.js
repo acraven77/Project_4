@@ -10,7 +10,7 @@
 
 
 //immediately invoked function
-// (function() {
+(function() {
 
 
   /* ================================================================
@@ -290,7 +290,7 @@
       if (game.board[0].name === "Computer" && $("#player1").hasClass("active")) {
         computerMove();
       }
-    });    
+    });
 
     $(".newGame").on("click", function() {
       location.reload();
@@ -332,4 +332,4 @@
   }
 
 
-// }());
+}());
