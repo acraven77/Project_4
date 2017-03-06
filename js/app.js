@@ -10,7 +10,7 @@
 
 
 //immediately invoked function
-(function() {
+// (function() {
 
 
   /* ================================================================
@@ -252,7 +252,7 @@
     if (document.getElementById('finish')) {
       $("#finish").show();
     } else {
-      $("body").append('<div class="screen screen-win" id="finish"><header><h1>Tic Tac Toe</h1><p class="message"></p><a href="#" class="button newGame">New game</a><h1 class="winPage">or</h1><a href="#" class="button">Reset Game</a></header></div>');
+      $("body").append('<div class="screen screen-win" id="finish"><header><h1>Tic Tac Toe</h1><p class="message"></p><a href="#" class="button newGame">New game</a><h1 class="winPage">or</h1><a href="#" class="button resetGame">Reset Game</a></header></div>');
     }
 
     if (player === 'Player 1') {
@@ -266,7 +266,7 @@
       $(".message").text("It's a Tie!");
     }
 
-    $(".newGame").on("click", function() {
+    $(".resetGame").on("click", function() {
       $("#finish").hide();
       $("#board").show();
       for (var i = 0; i < 2; i++) {
@@ -278,7 +278,6 @@
       document.getElementById('finish').classList.remove("screen-win-one", "screen-win-two", "screen-win-tie");
       game.boxesArr = [[0,0,0], [0,0,0], [0,0,0]];
 
-
       $("#player1").removeClass("active");
       $("#player2").removeClass("active");
 
@@ -288,9 +287,13 @@
         $("#player2").addClass("active");
       }
 
-      if (game.board[0].name === 'Computer' && $("#player1").hasClass("active")) {
+      if (game.board[0].name === "Computer" && $("#player1").hasClass("active")) {
         computerMove();
       }
+    });    
+
+    $(".newGame").on("click", function() {
+      location.reload();
     });
   }
 
@@ -329,4 +332,4 @@
   }
 
 
-}());
+// }());
